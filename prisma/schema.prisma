@@ -38,11 +38,11 @@ model Store {
 model StoreBanner {
   id               String  @id @default(uuid())
   bannerImage      String?
-  bannerTitle      String? 
+  bannerTitle      String?
   bannerDescrip    String?
-  height           Float? @default(400)
-  titleColor       String? 
-  titleSize        Float? 
+  height           Float?  @default(400)
+  titleColor       String?
+  titleSize        Float?
   descriptionColor String?
   descriptionSize  Float?
   store            Store?  @relation
@@ -53,6 +53,8 @@ model Product {
   name        String
   description String?
   price       Float
+  rating      Float?
+  sales       Float @default(0)
   fileUrl     String?
   store       Store          @relation(fields: [storeId], references: [id], onDelete: Cascade)
   storeId     String
