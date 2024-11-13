@@ -3,17 +3,18 @@ import { verifyToken } from "@/utils/verifyToken";
 import prisma from "@/utils/db";
 // import { Store } from "@prisma/client";
 import { storeDataPutDto } from "@/utils/Dto";
-
+import { verifyUserStore } from "@/utils/checkUserStore";
 export type GetStoreIdProps = {
     params: { settingsStoreId: string },
 }
 
 export async function GET(request: NextRequest, { params }: GetStoreIdProps) {
     try {
-        const userPayload = verifyToken(request)
-        if (userPayload === null) {
-            return NextResponse.json({ message: "sorry you are not user please sign in or make account" }, { status: 404 })
+        const verificationResult = await verifyUserStore(request, params.settingsStoreId);
+        if (verificationResult instanceof NextResponse) {
+            return verificationResult;
         }
+
         const storeItem = await prisma.store.findUnique({
             where: { id: params.settingsStoreId },
             select: {
@@ -53,6 +54,10 @@ export async function GET(request: NextRequest, { params }: GetStoreIdProps) {
 
 export async function PUT(request: NextRequest, { params }: GetStoreIdProps) {
     try {
+        const verificationResult = await verifyUserStore(request, params.settingsStoreId);
+        if (verificationResult instanceof NextResponse) {
+            return verificationResult;
+        }
         const body = await request.json() as storeDataPutDto
         const store = await prisma.store.update({
             where: { id: params.settingsStoreId },
@@ -85,8 +90,8 @@ export async function PUT(request: NextRequest, { params }: GetStoreIdProps) {
                     descriptionSize: body.storeBanner?.descriptionSize,
                 }
             })
-        } else{
-            return NextResponse.json({message: "storeBannerId is null. No storeBanner to update."}, {status: 400})
+        } else {
+            return NextResponse.json({ message: "storeBannerId is null. No storeBanner to update." }, { status: 400 })
         }
 
         return NextResponse.json({ message: "store updated sucessfully" }, { status: 201 })

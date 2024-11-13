@@ -52,10 +52,11 @@ export async function POST(request: NextRequest) {
 
 export async function GET(request: NextRequest) {
     try {
-        const userPayload = await verifyToken(request)
+        const userPayload = verifyToken(request)
         if (userPayload === null) {
             return NextResponse.json({ message: "sorry you are not user please sign in or make account" }, { status: 404 })
         }
+
         const store = await prisma.store.findMany({
             where: { userId: userPayload?.id },
             select: {

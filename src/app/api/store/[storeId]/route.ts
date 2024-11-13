@@ -48,6 +48,8 @@ export async function GET(
             name: true,
             description: true,
             price: true,
+            rating: true,
+            sales: true,
             createdAt: true,
             updatedAt: true,
             images: true,

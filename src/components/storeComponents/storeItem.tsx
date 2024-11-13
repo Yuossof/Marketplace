@@ -13,6 +13,7 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '../ui/card
 import Product from '../product/Product';
 interface Store {
   storename?: string,
+  userId: string,
   storeBanner?: {
     bannerTitle?: string,
     titleSize?: number,
@@ -29,6 +30,8 @@ interface Store {
       name: string,
       description: string,
       price: number,
+      sales: number,
+      rating: number,
       createdAt: Date,
       updatedAt: Date,
       images: [
@@ -40,7 +43,7 @@ interface Store {
   ]
 }
 
-const StoreItem = ({ params }: getStoreIdProps) => {
+const StoreItem = ({ params, userId }: getStoreIdProps) => {
   // const [width, setWidth] = useState(false)
   const [store, setStore] = useState<Store | null>(null);
   const [loading, setLoading] = useState(true);
@@ -110,13 +113,15 @@ const StoreItem = ({ params }: getStoreIdProps) => {
 
         {/* Product Cards */}
         <section className="container mx-auto py-12">
-          <Product />
+          <Product products={store?.products} />
         </section>
       </main>
 
       {/* Footer */}
       <footer className="border-t">
-        <Link href={`/store/settings/${params.storeId}`}>to st</Link>
+        {userId !== store?.userId ? (<></>) : (
+          <Link href={`/store/settings/${params.storeId}`}>to st</Link>
+        )}
         <div className="container mx-auto py-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div>

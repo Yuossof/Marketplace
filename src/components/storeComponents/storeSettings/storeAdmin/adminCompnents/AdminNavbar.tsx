@@ -16,7 +16,7 @@ const AdminNavbar = ({params}: Props) => {
                     <Link className='font-semibold text-gray-700 hover:underline' href="/store">stores</Link>
                     <Link className='font-semibold text-gray-700 hover:underline' href={`/store/${params.settingsStoreId}`}>store home</Link>
                     <Link className='font-semibold text-gray-700 hover:underline' href={`/store/settings/${params.settingsStoreId}`}>Banner</Link>
-                    <Link className='font-semibold text-gray-700 hover:underline' href="/pro">Products</Link>
+                    <Link className='font-semibold text-gray-700 hover:underline' href={`/store/products/${params.settingsStoreId}`}>Products</Link>
                 </ul>
             </div>
             <div>

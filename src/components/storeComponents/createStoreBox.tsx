@@ -25,8 +25,6 @@ const CreateStoreBox = ({ userId }: Props) => {
     const [uploading, setUploading] = useState<boolean>(false);
 
     const [showBox, setShowBox] = useState(false)
-    const [storeName, setStoreName] = useState('')
-    const [storeDescription, setStoreDescription] = useState('')
     const [imageFile, setImageFile] = useState<File | null>(null)
 
 
@@ -74,7 +72,7 @@ const CreateStoreBox = ({ userId }: Props) => {
                     storeImage: imageUrl,
                     storeBanner: {
                         bannerTitle: "Title",
-                        bannerImage: imageUrl,
+                        bannerImage: "",
                         bannerDescrip: "bannerDescrip",
                         titleColor: "#fff",
                         titleSize: 30,
@@ -103,7 +101,7 @@ const CreateStoreBox = ({ userId }: Props) => {
     const handleFileChange = (eo: React.ChangeEvent<HTMLInputElement>) => {
         const file = eo.target.files ? eo.target.files[0] : null;
         setStoreImage(file);
-
+        setImageFile(file)
         if (file) {
             setUploading(true);
             setTimeout(() => setUploading(false), 1000);

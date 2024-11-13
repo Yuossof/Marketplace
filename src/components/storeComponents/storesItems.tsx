@@ -24,7 +24,7 @@ interface Store {
 interface StoreResponse {
   store: Store[];
 }
-const StoresItems = () => {
+const StoresItems = ({userId}: {userId: string}) => {
   const router = useRouter()
   const [stores, setStores] = useState<Store[]>([]);
   const [loading, setLoading] = useState(true);
@@ -33,6 +33,7 @@ const StoresItems = () => {
 
 
   useEffect(() => {
+
     const fetchStores = async () => {
       try {
         const response = await fetch('http://localhost:3000/api/store');
