@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "StoreBanner" ALTER COLUMN "height" SET DEFAULT '450px',
+ALTER COLUMN "height" SET DATA TYPE TEXT;
