@@ -10,6 +10,7 @@ import Link from 'next/link';
 import axios from 'axios';
 import Image from 'next/image';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '../ui/card';
+import Product from '../product/Product';
 interface Store {
   storename?: string,
   storeBanner?: {
@@ -109,50 +110,7 @@ const StoreItem = ({ params }: getStoreIdProps) => {
 
         {/* Product Cards */}
         <section className="container mx-auto py-12">
-          <h2 className="text-3xl font-bold mb-8">Featured Products</h2>
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
-            {store && store.products.length > 0 ? (
-
-              store.products.map((product, index) => (
-                <Card key={index} className="overflow-hidden  max-w-[360px]">
-                  <CardHeader className="p-0">
-                    <div className="aspect-square border-b-4 relative w-full flex items-center justify-center overflow-hidden">
-                      <Image
-                        src={product.images[0].url || ""}
-                        alt={product.name || "no image"}
-                        width={200}
-                        height={200}
-                        objectFit="cover"
-                        className="w-full h-full"
-                      />
-                    </div>
-                  </CardHeader>
-                  <CardContent className="p-3">
-                    <CardTitle className="text-lg mb-2">{product.name}</CardTitle>
-                    <div className="flex items-center mb-2">
-                      <span className="text-yellow-400 mr-1">★</span>
-                      {/* <span className="font-semibold">{product.rating.toFixed(1)}</span> */}
-                      <span className="text-muted-foreground ml-2">36 sold</span>
-                    </div>
-                    <p className="text-muted-foreground text-sm mb-4">
-                      {product.description || ""}
-                    </p>
-                  </CardContent>
-                  <CardFooter className="flex justify-between items-center p-3 bg-muted/50">
-                    <span className="text-lg font-bold">${product.price.toFixed(2)}</span>
-                    <Button>
-                      <ShoppingCart className="mr-2 h-4 w-4" />
-                      Add to Cart
-                    </Button>
-                  </CardFooter>
-                </Card>
-              ))
-
-            ) : (
-              "no products avilable"
-            )}
-
-          </div>
+          <Product />
         </section>
       </main>
 
