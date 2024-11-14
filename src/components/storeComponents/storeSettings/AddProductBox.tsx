@@ -14,23 +14,28 @@ import { useRouter } from 'next/navigation'
 const AddProductBox = ({ storeId }: { storeId: string }) => {
     const router = useRouter()
     const [isLoading, setIsLoading] = useState(false)
-    const [uploadedImages, setUploadedImages] = useState<Array<string | File>>([]);
+    // const [uploadedImages, setUploadedImages] = useState<Array<string | File>>([]);
     const [isDragging, setIsDragging] = useState(false)
     const fileInputRef = useRef<HTMLInputElement>(null)
     const [name, setName] = useState("")
     const [description, setDescription] = useState("")
     const [price, setPrice] = useState(0)
     const [fileUrl, setFileUrl] = useState("")
+    const [uploadedImages, setUploadedImages] = useState<Array<{ file: File; preview: string }>>([]);
 
     const preset_name = "qiijedbj";
     const cloud_name = "dx9rie3vv";
 
-        const handleFileChange = (files: FileList | null) => {
-            if (files) {
-                const newFiles = Array.from(files);
-                setUploadedImages((prevImages) => [...prevImages, ...newFiles]);
-            }
-        };
+    const handleFileChange = (files: FileList | null) => {
+        if (files) {
+            const newFiles = Array.from(files);
+            const imagePreviews = newFiles.map(file => ({
+                file,
+                preview: URL.createObjectURL(file)
+            }));
+            setUploadedImages((prevImages) => [...prevImages, ...imagePreviews]);
+        }
+    };
         
 
     const handleUploadClick = () => {
@@ -67,20 +72,18 @@ const AddProductBox = ({ storeId }: { storeId: string }) => {
     }
     const uploadImages = async (): Promise<string[]> => {
         try {
-            const uploadPromises = uploadedImages
-                .filter((image): image is File => image instanceof File) // تأكد من أن `image` من نوع `File`
-                .map(async (file) => {
-                    const form = new FormData();
-                    form.append("file", file);
-                    form.append("upload_preset", preset_name);
+            const uploadPromises = uploadedImages.map(async (image) => {
+                const form = new FormData();
+                form.append("file", image.file); // استخدم image.file هنا
+                form.append("upload_preset", preset_name);
     
-                    const res = await axios.post(
-                        `https://api.cloudinary.com/v1_1/${cloud_name}/upload`,
-                        form
-                    );
+                const res = await axios.post(
+                    `https://api.cloudinary.com/v1_1/${cloud_name}/upload`,
+                    form
+                );
     
-                    return res.data.url;
-                });
+                return res.data.url;
+            });
     
             const urls = await Promise.all(uploadPromises);
             console.log(urls);
@@ -96,7 +99,7 @@ const AddProductBox = ({ storeId }: { storeId: string }) => {
             // setSelectImageError(false)
             setIsLoading(true);
             const imageUrl = await uploadImages();
-            console.log(imageUrl)
+            // console.log(imageUrl)
             // setUploading(true)
             if (imageUrl.length !== 0) {
                 await axios.post("http://localhost:3000/api/products", {
@@ -128,8 +131,7 @@ const AddProductBox = ({ storeId }: { storeId: string }) => {
 
 
     return (
-        <Card className="w-2/4 z-50 relative max-h-[85%] overflow-auto">
-            <span onClick={() => console.log(uploadedImages)}>dd</span>
+        <Card className="w-2/4 z-50 relative max-h-[95%] overflow-auto">
             <X className=' absolute top-2 right-2 opacity-85 cursor-pointer hover:opacity-60' />
             <CardHeader>
                 <CardTitle onClick={() => console.log(uploadedImages)} className="text-2xl font-bold">Product Upload</CardTitle>
@@ -189,7 +191,7 @@ const AddProductBox = ({ storeId }: { storeId: string }) => {
                         {uploadedImages.map((image, index) => (
                             <div key={index} className="relative group">
                                 <Image
-                                    src={image}
+                                    src={image.preview}
                                     alt={`Uploaded image ${index + 1}`}
                                     width={200}
                                     height={200}

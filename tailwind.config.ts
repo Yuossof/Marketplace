@@ -9,6 +9,11 @@ const config: Config = {
   ],
   theme: {
   	extend: {
+		screens: {
+			'mdlg': '1180px' ,
+			'smmd': '930px',
+			'xsm': '420px'
+		},
   		colors: {
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
@@ -28,6 +33,7 @@ const config: Config = {
   				DEFAULT: 'hsl(var(--secondary))',
   				foreground: 'hsl(var(--secondary-foreground))'
   			},
+
   			muted: {
   				DEFAULT: 'hsl(var(--muted))',
   				foreground: 'hsl(var(--muted-foreground))'

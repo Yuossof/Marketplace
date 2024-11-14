@@ -3,8 +3,7 @@ import Link from 'next/link'
 import { cookies } from 'next/headers'
 import { verifyTokenForPage } from '@/utils/verifyToken'
 import { JwtPayloadType } from '@/utils/types'
-import { ShoppingBag } from 'lucide-react'
-
+import { CircleUserRound, ShoppingBag } from 'lucide-react'
 const Navbar = () => {
   const token = cookies().get("jwtToken")?.value
   const userPayload: JwtPayloadType | null = verifyTokenForPage(token as string)
@@ -16,7 +15,7 @@ const Navbar = () => {
           <ShoppingBag className="h-6 w-6" />
           <span className="ml-2 text-lg font-bold">MarketPlace</span>
         </Link>
-        <nav className="ml-auto flex gap-4 sm:gap-6">
+        <nav className="ml-auto flex items-center gap-4 sm:gap-6">
           <Link className="text-sm font-medium hover:underline underline-offset-4" href="#">
             Features
           </Link>
@@ -29,6 +28,9 @@ const Navbar = () => {
           <Link className="text-sm font-medium hover:underline underline-offset-4" href="#">
             Contact
           </Link>
+          <div className='p-[5px] hover:bg-slate-100 rounded-full cursor-pointer transition'>
+            <CircleUserRound className='text-gray-700'/>
+          </div>
         </nav>
       </header>
     </div>
