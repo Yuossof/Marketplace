@@ -1,8 +1,6 @@
-"use client"
 import React from 'react'
 import Link from 'next/link'
-import { Button } from '@/components/ui/button'
-import { Menu, ShoppingCart } from 'lucide-react'
+import { Bell } from 'lucide-react'
 interface Props {
     params: {settingsStoreId: string}
 }
@@ -20,7 +18,10 @@ const AdminNavbar = ({params}: Props) => {
                 </ul>
             </div>
             <div>
-                <ShoppingCart />
+                <Bell />
+                <div className='bg-slate-100 border-[1px] border-gray-300 rounded-md'>
+                    
+                </div>
             </div>
         </header>
     )

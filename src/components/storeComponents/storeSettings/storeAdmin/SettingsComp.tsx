@@ -150,9 +150,6 @@ const SettingsComp = ({ params, userId }: getStoreIdProps) => {
     }, [])
     const products = [
         { id: 1, name: "Elegant Watch", price: 199.99, image: "/placeholder.svg" },
-        { id: 2, name: "Leather Bag", price: 89.99, image: "/placeholder.svg" },
-        { id: 3, name: "Sunglasses", price: 59.99, image: "/placeholder.svg" },
-        { id: 3, name: "Sunglasses", price: 59.99, image: "/placeholder.svg" },
 
     ]
 
@@ -392,7 +389,10 @@ const SettingsComp = ({ params, userId }: getStoreIdProps) => {
 
 
                                 <div className="w-full mt-8">
-                                    <h2 className="text-2xl font-semibold mb-6">Our Products</h2>
+                                    <div className='flex items-center mb-6 gap-3'>
+                                        <span className="text-2xl font-semibold">Our Products </span>
+                                        <span className='text-gray-600 text-md mt-1'>(for test only)</span>
+                                    </div>
                                     <div className=" grid grid-cols-1 xsm:grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4 gap-6 max-w-full overflow-auto">
                                         {products.map((product, i) => (
                                             <Card

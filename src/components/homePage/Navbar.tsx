@@ -3,7 +3,11 @@ import Link from 'next/link'
 import { cookies } from 'next/headers'
 import { verifyTokenForPage } from '@/utils/verifyToken'
 import { JwtPayloadType } from '@/utils/types'
-import { CircleUserRound, ShoppingBag } from 'lucide-react'
+import {
+  ShoppingBag,
+} from 'lucide-react'
+import ProfileMenu from './ProfileMenu'
+
 const Navbar = () => {
   const token = cookies().get("jwtToken")?.value
   const userPayload: JwtPayloadType | null = verifyTokenForPage(token as string)
@@ -28,9 +32,9 @@ const Navbar = () => {
           <Link className="text-sm font-medium hover:underline underline-offset-4" href="#">
             Contact
           </Link>
-          <div className='p-[5px] hover:bg-slate-100 rounded-full cursor-pointer transition'>
-            <CircleUserRound className='text-gray-700'/>
-          </div>
+          
+          <ProfileMenu userPayload={userPayload}/>
+
         </nav>
       </header>
     </div>

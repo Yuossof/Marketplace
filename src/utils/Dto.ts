@@ -14,6 +14,7 @@ export interface storeDataDto {
         descriptionSize?: number
     }
 }
+
 export type storeDataPutDto = {
     userId: string
     name: string,

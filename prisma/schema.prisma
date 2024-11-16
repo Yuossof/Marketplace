@@ -13,6 +13,8 @@ model User {
   email     String   @unique
   password  String
   isAdmin   Boolean  @default(false)
+  havStore  Boolean  @default(false)
+  worksIn   String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -22,17 +24,31 @@ model User {
 }
 
 model Store {
-  id            String       @id @default(uuid())
+  id            String         @id @default(uuid())
   name          String
   description   String?
   storeImage    String?
-  user          User         @relation(fields: [userId], references: [id])
+  user          User           @relation(fields: [userId], references: [id])
   userId        String
   products      Product[]
-  createdAt     DateTime     @default(now())
-  updatedAt     DateTime     @updatedAt
-  storeBanner   StoreBanner? @relation(fields: [storeBannerId], references: [id])
-  storeBannerId String?      @unique
+  notfication   Notification[]
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  storeBanner   StoreBanner?   @relation(fields: [storeBannerId], references: [id])
+  storeBannerId String?        @unique
+}
+
+model Notification {
+  id          String   @id @default(uuid())
+  title       String
+  username    String
+  useremail   String
+  description String?
+  markAsRead  Boolean
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  storeId     String
+  store       Store    @relation(fields: [storeId], references: [id])
 }
 
 model StoreBanner {
@@ -54,7 +70,7 @@ model Product {
   description String?
   price       Float
   rating      Float?
-  sales       Float @default(0)
+  sales       Float          @default(0)
   fileUrl     String?
   store       Store          @relation(fields: [storeId], references: [id], onDelete: Cascade)
   storeId     String

@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import SuccessMessage from './SuccessMessage'
 import ErrorMesasge from './ErrorMesasge'
-
+import { Input } from '../ui/input'
 const RegisterForm = () => {
     const router = useRouter()
     const [username, setUsername] = useState("")
@@ -41,26 +41,26 @@ const RegisterForm = () => {
     }
     return (
         <div className='w-full h-full flex items-center justify-center'>
-            <div className='py-6 px-5 bg-white rounded-xl border-2 shadow-xl'>
+            <div className='py-6 px-5 bg-white rounded-xl border-2 shadow-xl w-[400px]'>
                 <h1 className='text-4xl text-center font-semibold text-gray-600 mr-3'>🔐Register</h1>
                 <form className='flex flex-col gap-4 mt-10' onSubmit={handleSubmit}>
                     {/* <div className='flex flex-col gap-2 items-start'> */}
                         <label>
                             Name
                         </label>
-                        <input value={username} onChange={(eo)=> setUsername(eo.target.value)} className='border-[1px] border-gray-400 w-[350px] h-[40px] pl-5 rounded-lg outline-gray-600 outline-[1px]' type="text" placeholder='Jhone' />
+                        <Input value={username} onChange={(eo)=> setUsername(eo.target.value)}  type="text" placeholder='Jhone' />
                     {/* </div> */}
                     {/* <div className='flex flex-col gap-2 items-start'> */}
                         <label>
                             Email
                         </label>
-                        <input value={email} onChange={(eo)=> setEmail(eo.target.value)} className='border-[1px] border-gray-400 w-[350px] h-[40px] pl-5 rounded-lg outline-gray-600 outline-[0.5px]' type="email" placeholder='Jhone@due.com' />
+                        <Input value={email} onChange={(eo)=> setEmail(eo.target.value)}  type="email" placeholder='Jhone@due.com' />
                     {/* </div> */}
                     {/* <div className='flex flex-col gap-2 items-start'> */}
                         <label>
                             Password
                         </label>
-                        <input value={password} onChange={(eo)=> setPassword(eo.target.value)} className='border-[1px] border-gray-400 w-[350px] h-[40px] pl-5 rounded-lg outline-gray-600 outline-[0.5px]' type="password" placeholder='******' />
+                        <Input value={password} onChange={(eo)=> setPassword(eo.target.value)} type="password" placeholder='******' />
                     {/* </div> */}
                     {successMessage && <SuccessMessage />}
                     {errMessage && <ErrorMesasge errMessageStr={errMessageStr}/>}
