@@ -34,7 +34,8 @@ export async function GET(request: NextRequest, { params }: GetStoreIdProps) {
                         bannerImage: true,
                         height: true
                     }
-                }
+                },
+                notfication: true
             }
         })
 

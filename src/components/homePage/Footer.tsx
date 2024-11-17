@@ -11,6 +11,7 @@ const Footer = () => {
                 <Link className="text-xs hover:underline underline-offset-4" href="#">
                     Privacy
                 </Link>
+                <Link href="/store/165f7541-7a1d-4c4e-afaa-b0628489705c">test store</Link>
             </nav>
         </footer>
     )

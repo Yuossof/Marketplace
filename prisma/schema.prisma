@@ -8,15 +8,16 @@ generator client {
 }
 
 model User {
-  id        String   @id @default(uuid())
-  name      String
-  email     String   @unique
-  password  String
-  isAdmin   Boolean  @default(false)
-  havStore  Boolean  @default(false)
-  worksIn   String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id          String   @id @default(uuid())
+  name        String
+  email       String   @unique
+  password    String
+  isAdmin     Boolean  @default(false)
+  havStore    Boolean  @default(false)
+  worksWith   String?
+  workInStore Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
   carts  Cart[]
   orders Order[]
@@ -40,14 +41,16 @@ model Store {
 
 model Notification {
   id          String   @id @default(uuid())
-  title       String
-  username    String
-  useremail   String
+  title       String   @default("no title")
+  username    String?
+  useremail   String?
   description String?
-  markAsRead  Boolean
+  markAsRead  Boolean?
+  phoneNumber String?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   storeId     String
+  userId      String?
   store       Store    @relation(fields: [storeId], references: [id])
 }
 

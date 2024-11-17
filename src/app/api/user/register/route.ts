@@ -23,14 +23,18 @@ export async function POST(request: NextRequest){
             select: {
                 id: true,
                 name: true,
-                isAdmin: true
+                isAdmin: true,
+                workInStore: true,
+                worksWith: true
             }
         })
 
         const jwtPayload: JwtPayloadType = {
             id: newUser.id,
             name: newUser.name,
-            isAdmin: newUser.isAdmin
+            isAdmin: newUser.isAdmin,
+            workInStore: newUser.workInStore,
+            workWith: newUser.worksWith === null ? "not working" : newUser.worksWith
         }
         const cookie = setCookie(jwtPayload)
         return NextResponse.json({newUser}, {status: 201, headers: {"Set-Cookie": cookie}})

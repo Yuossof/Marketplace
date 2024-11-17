@@ -28,6 +28,7 @@ const LoginForm = () => {
                 setSuccessMessage(true)
                 setTimeout(() => {
                     router.push("/")
+                    router.refresh()
                 }, 2000)
             })
 

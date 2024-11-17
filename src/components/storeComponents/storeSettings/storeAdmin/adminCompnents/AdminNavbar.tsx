@@ -1,10 +1,13 @@
 import React from 'react'
 import Link from 'next/link'
 import { Bell } from 'lucide-react'
+import { Button } from '@/components/ui/button'
+import NotificationBox from './NotificationBox'
+// import NotificationBox from './NotificationBox'
 interface Props {
-    params: {settingsStoreId: string}
+    params: { settingsStoreId: string },
 }
-const AdminNavbar = ({params}: Props) => {
+const AdminNavbar = ({ params }: Props) => {
     return (
         <header className="w-full fixed top-0 right-0 left-0 border-b z-20  backdrop-blur flex justify-between px-7 items-center h-[60px]">
             <div className='flex items-center gap-8'>
@@ -17,10 +20,10 @@ const AdminNavbar = ({params}: Props) => {
                     <Link className='font-semibold text-gray-700 hover:underline' href={`/store/products/${params.settingsStoreId}`}>Products</Link>
                 </ul>
             </div>
-            <div>
+            <div className=' relative'>
                 <Bell />
-                <div className='bg-slate-100 border-[1px] border-gray-300 rounded-md'>
-                    
+                <div className=' absolute top-5 right-0'>
+                    <NotificationBox  storeId={params.settingsStoreId}/>
                 </div>
             </div>
         </header>

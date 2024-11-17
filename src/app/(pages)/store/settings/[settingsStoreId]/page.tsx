@@ -10,6 +10,7 @@ export interface getStoreIdProps {
 const page = ({ params }: getStoreIdProps) => {
   const token = cookies().get('jwtToken')?.value;
   const { id } = verifyTokenForPage(token as string) as JwtPayloadType;
+
   return (
     <div className='flex flex-col w-full'>
       <AdminNavbar params={params} />

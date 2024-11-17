@@ -13,6 +13,7 @@ import BannerImageUploaderBox from './adminCompnents/BannerImageUploaderBox'
 import { Plus, ShoppingCart, Star } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'
 import './settingsComp.css'
+import tempImage from "../../../../../public/thumbnail.jpg"
 interface getStoreIdProps {
     params: { settingsStoreId: string },
     userId: string
@@ -43,7 +44,7 @@ const SettingsComp = ({ params, userId }: getStoreIdProps) => {
     const [bannerImage, setBannerImage] = useState("")
     const [storeImage, setStoreImage] = useState("")
     const [disableSaveButton, setDisableSaveButton] = useState(false)
-    const [isHovered, setIsHovered] = useState(null)
+    const [isHovered, setIsHovered] = useState<number | null>(null)
 
     //store banner states start
 
@@ -355,7 +356,7 @@ const SettingsComp = ({ params, userId }: getStoreIdProps) => {
                                         className="rounded-md shadow-sm"
                                     >
                                         <Image
-                                            src={bannerImage}
+                                            src={bannerImage || tempImage}
                                             alt="Store Banner"
                                             layout="fill"
                                             objectFit="cover"
@@ -403,9 +404,9 @@ const SettingsComp = ({ params, userId }: getStoreIdProps) => {
                                             >
                                                 <div className="relative">
                                                     <div className='h-52'>
-                                                        <Image src={product.image} alt='no' layout="fill"
+                                                        {/* <Image src={product.image} alt='no' layout="fill"
                                                             objectFit="cover"
-                                                            priority />
+                                                            priority /> */}
                                                     </div>
                                                     <Badge className="absolute top-2 left-2 bg-red-500">Sale</Badge>
                                                     {isHovered === i && (

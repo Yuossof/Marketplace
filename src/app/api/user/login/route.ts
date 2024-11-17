@@ -15,11 +15,12 @@ export async function POST(request: NextRequest) {
         if(!verifyPassword) {
             return NextResponse.json({message: "invalid email or password"}, {status: 403})
         }
-        const jwtPayload = {
+        const jwtPayload: JwtPayloadType = {
             id: user.id,
             name: user.name,
             isAdmin: user.isAdmin,
-
+            workWith: user.worksWith === null ? "not workin" : user.worksWith,
+            workInStore: user.workInStore
         }
         
         const cookie = setCookie(jwtPayload)
