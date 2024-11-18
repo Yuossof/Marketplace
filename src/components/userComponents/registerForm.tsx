@@ -32,7 +32,7 @@ const RegisterForm = () => {
                 router.push("/")
             }, 2000)
             
-        } catch (error) {
+        } catch (error: any) {
             setIsLoading(false)
             seterrMessage(true)
             setSuccessMessage(false)

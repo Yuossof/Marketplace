@@ -6,15 +6,15 @@ import { verifyTokenForPage } from '@/utils/verifyToken'
 import { JwtPayloadType } from '@/utils/types'
 export interface getStoreIdProps {
   params: { storeId: string },
-  userId: string
 }
 const page = ({ params }: getStoreIdProps) => {
   const token = cookies().get('jwtToken')?.value;
-  const { id } = verifyTokenForPage(token as string) as JwtPayloadType;
+  const userPayload = verifyTokenForPage(token as string) as JwtPayloadType;
+
   return (
     <div className='flex flex-col w-full'>
       <StoreNav />
-      <StoreItem userId={id} params={params} />
+      <StoreItem userId={!userPayload ? "" : userPayload.id} params={params} />
     </div>
   )
 }

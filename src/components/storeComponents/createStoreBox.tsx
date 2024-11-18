@@ -14,6 +14,9 @@ import { Upload, X } from 'lucide-react'
 interface Props {
     userId: string;
 }
+interface CloudinaryResponse {
+    url: string; 
+}
 
 const CreateStoreBox = ({ userId }: Props) => {
     const router = useRouter();
@@ -39,7 +42,7 @@ const CreateStoreBox = ({ userId }: Props) => {
                 form.append('file', storeImage);
                 form.append("upload_preset", preset_name);
 
-                const res = await axios.post(
+                const res = await axios.post<CloudinaryResponse>(
                     `https://api.cloudinary.com/v1_1/${cloud_name}/upload`,
                     form
                 );

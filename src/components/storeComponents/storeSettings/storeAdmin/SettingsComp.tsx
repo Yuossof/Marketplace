@@ -38,6 +38,10 @@ interface Store {
     }
 }
 
+interface CloudinaryResponse {
+    url: string; 
+}
+
 const SettingsComp = ({ params, userId }: getStoreIdProps) => {
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const [bannerImageUrl, setBannerImageUrl] = useState<File | null>(null)
@@ -64,7 +68,6 @@ const SettingsComp = ({ params, userId }: getStoreIdProps) => {
 
 
 
-
     const preset_name = "qiijedbj";
     const cloud_name = "dx9rie3vv";
 
@@ -74,7 +77,7 @@ const SettingsComp = ({ params, userId }: getStoreIdProps) => {
                 const form = new FormData();
                 form.append('file', bannerImageUrl);
                 form.append("upload_preset", preset_name);
-                const res = await axios.post(
+                const res = await axios.post<CloudinaryResponse>(
                     `https://api.cloudinary.com/v1_1/${cloud_name}/upload`,
                     form
                 );

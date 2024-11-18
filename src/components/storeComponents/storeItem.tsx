@@ -1,15 +1,8 @@
 "use client";
 import React, { useEffect, useState } from 'react';
-import { getStoreIdProps } from '@/app/(pages)/store/[storeId]/page';
-// import Image from 'next/image';
-import mm from '../../../public/nav/ui-kits/purple.jpg'
-import { Button } from '../ui/button';
-import { Menu, ShoppingBag, ShoppingCart } from 'lucide-react';
-import { Settings } from 'lucide-react';
 import Link from 'next/link';
 import axios from 'axios';
 import Image from 'next/image';
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '../ui/card';
 import Product from '../product/Product';
 import StoreFooter from './StoreFooter';
 interface Store {
@@ -44,8 +37,12 @@ interface Store {
   ]
 }
 
+interface getStoreIdProps {
+  params: { storeId: string },
+  userId?: string
+}
+
 const StoreItem = ({ params, userId }: getStoreIdProps) => {
-  // const [width, setWidth] = useState(false)
   const [store, setStore] = useState<Store | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -57,8 +54,8 @@ const StoreItem = ({ params, userId }: getStoreIdProps) => {
         const data = response.data;
         console.log(data)
         setStore(data as Store);
-      } catch (err) {
-        setError(err.message);
+      } catch (err: any) {
+        setError(err.response.data.message);
       } finally {
         setLoading(false);
       }
@@ -130,52 +127,5 @@ const StoreItem = ({ params, userId }: getStoreIdProps) => {
   )
 }
 
-
-// <div className='w-full flex m-auto justify-center mt-10'>
-//   <div className=' w-[83%] sm:w-[90%] md:w-[90%] lg:w-4/5 m flex flex-wrap justify-center lg:justify-start md:justify-center sm:justify-center gap-[40px]'>
-//     {store && store.products.length > 0 ? (
-//       store.products.map((item) => (
-//         <div key={item.id} className='bg-white w-[250px] rounded-lg mt-10'>
-//           {item.images.length > 0 ? (
-//             // eslint-disable-next-line @next/next/no-img-element
-//             <img
-//               className='rounded-lg border-2 w-[300px] h-[200px]'
-//               src={item.images[0].url || ""}
-//               alt={item.name || 'no image'}
-//             />
-//           ) : (
-//             <div>No image available</div>
-//           )}
-//           <div className='flex flex-col'>
-//             <div className='p-2 flex justify-between gap-1 mt-1 items-start'>
-//               <div className='flex flex-col gap-2'>
-//                 <h1 className='font-semibold text-xl text-gray-700'>{item.name}</h1>
-//                 <span className='text-gray-600'>{item.price}$</span>
-//               </div>
-//               <div>
-//                 <span className='bg-slate-100 rounded-md p-[1px] text-sm font-semibold px-2 text-gray-600'>UI-kits</span>
-//               </div>
-//             </div>
-//             <div className='w-full'>
-//               <Button size="sm">Add to cart <ShoppingBag /></Button>
-//             </div>
-//           </div>
-//         </div>
-//       ))
-//     ) : (
-//       <div>No products available</div>
-//     )}
-
-//   </div>
-// </div>
 export default StoreItem;
 
-
-
-// {stores.length === 0 ? (
-//   <div>No stores available</div>
-// ) : (
-//   <div>
-
-//   </div>
-// )}

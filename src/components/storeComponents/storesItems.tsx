@@ -24,12 +24,12 @@ interface Store {
 interface StoreResponse {
   store: Store[];
 }
-const StoresItems = ({userId}: {userId: string}) => {
+const StoresItems = () => {
   const router = useRouter()
   const [stores, setStores] = useState<Store[]>([]);
   const [loading, setLoading] = useState(true);
   const [loadingSpinner, setLoadingSpinner] = useState<boolean>(false)
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
 
 
   useEffect(() => {
@@ -42,7 +42,7 @@ const StoresItems = ({userId}: {userId: string}) => {
         }
         const data: StoreResponse = await response.json();
         setStores(data.store);
-      } catch (err) {
+      } catch (err: any) {
         setError(err.message);
       } finally {
         setLoading(false);
@@ -59,8 +59,8 @@ const StoresItems = ({userId}: {userId: string}) => {
       router.refresh()
       window.location.reload()
       setLoadingSpinner(false)
-    } catch (err) {
-      setError(err.message);
+    } catch (err: any) {
+      setError("something went wrong");
     } finally {
       setLoadingSpinner(false)
     }

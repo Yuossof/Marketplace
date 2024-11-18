@@ -23,7 +23,7 @@ const page = async () => {
                         <CreateStoreBox userId={id} />
                     </div>
                     <div className='w-full flex justify-center'>
-                        <StoresItems userId={id}/>
+                        <StoresItems />
                     </div>
                 </div>
             </div>

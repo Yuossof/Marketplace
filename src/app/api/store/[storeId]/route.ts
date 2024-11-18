@@ -11,9 +11,9 @@ export async function GET(
   context: GetStoreIdProps
 ) {
   try {
-    const { storeId } = context.params; // الوصول إلى params بشكل صحيح
+    const { storeId } = context.params; 
 
-    const userPayload = verifyToken(request); // تحقق من التوكن
+    const userPayload = verifyToken(request); 
     if (!userPayload) {
       return NextResponse.json(
         { message: "Sorry, you are not a user. Please sign in or create an account." },
@@ -74,12 +74,14 @@ export async function GET(
 
 export async function DELETE(request: NextRequest, { params }: GetStoreIdProps) {
   try {
-    console.log(params.storeId);
     const userPayload = verifyToken(request);
     if (userPayload === null) {
       return NextResponse.json({ message: "sorry you are not user please sign in or make account" }, { status: 404 });
     }
-
+    const checkUserStore = await prisma.store.findFirst({ where: {userId: userPayload.id} })
+    if(!checkUserStore){
+      return NextResponse.json({message: "sorry this store not for you"}, {status: 400})
+    }
     const store = await prisma.store.findUnique({
       where: { id: params.storeId },
       include: {

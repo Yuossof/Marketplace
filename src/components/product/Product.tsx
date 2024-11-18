@@ -6,35 +6,35 @@ import { ShoppingCart, BarChart2, Star, Plus } from 'lucide-react'
 import Image from 'next/image'
 import { Badge } from '../ui/badge'
 
-interface Props {
-    products: [
-        {
-            id: string
-            name: string,
-            description: string,
-            price: number,
-            sales: number,
-            rating: number,
-            createdAt: Date,
-            updatedAt: Date,
-            images: [
-                {
-                    url: string
-                }
-            ]
-        }
-    ]
-}
+// interface Props {
+//     products: [
+//         {
+//             id: string
+//             name: string,
+//             description: string,
+//             price: number,
+//             sales: number,
+//             rating: number,
+//             createdAt: Date,
+//             updatedAt: Date,
+//             images: [
+//                 {
+//                     url: string
+//                 }
+//             ]
+//         }
+//     ]
+// }
 
 
-export default function Product({ products }: Props) {
+export default function Product({ products }: any) {
  
     return (
         <div className="container mx-auto w-full px-4 py-8">
             <h1 className="text-2xl font-bold mb-6">Featured Products</h1>
             <div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-11">
-                    {products.map((product) => {
+                    {products.map((product: any) => {
                         const [isHovered, setIsHovered] = useState(false)
 
                         return (

@@ -10,6 +10,9 @@ import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Upload, X, Image as ImageIcon } from 'lucide-react'
 import { useRouter } from 'next/navigation'
+interface CloudinaryResponse {
+    url: string; 
+}
 
 const AddProductBox = ({ storeId }: { storeId: string }) => {
     const router = useRouter()
@@ -77,7 +80,7 @@ const AddProductBox = ({ storeId }: { storeId: string }) => {
                 form.append("file", image.file); // استخدم image.file هنا
                 form.append("upload_preset", preset_name);
     
-                const res = await axios.post(
+                const res = await axios.post<CloudinaryResponse>(
                     `https://api.cloudinary.com/v1_1/${cloud_name}/upload`,
                     form
                 );

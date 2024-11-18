@@ -33,7 +33,7 @@ const LoginForm = () => {
             })
 
 
-        } catch (error) {
+        } catch (error: any) {
             setIsLoading(false)
             seterrMessage(true)
             seterrMessageStr(error.response?.data?.message)

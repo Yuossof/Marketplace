@@ -21,17 +21,9 @@ export default function DeliveryWorkerDashboard() {
     { id: 3, message: 'Performance review upcoming', read: true },
   ])
 
-  const handleOrderAction = (orderId, action) => {
-    setOrders(orders.map(order => 
-      order.id === orderId ? { ...order, status: action } : order
-    ))
-  }
 
-  const markNotificationAsRead = (notificationId) => {
-    setNotifications(notifications.map(notification =>
-      notification.id === notificationId ? { ...notification, read: true } : notification
-    ))
-  }
+
+
 
   return (
     <div className="container mx-auto p-4">
@@ -70,14 +62,14 @@ export default function DeliveryWorkerDashboard() {
                       <p className="font-semibold">{order.customer}</p>
                       <p className="text-sm text-muted-foreground">{order.address}</p>
                     </div>
-                    <Badge variant={order.status === 'pending' ? 'outline' : (order.status === 'approved' ? 'success' : 'destructive')}>
+                    <Badge>
                       {order.status}
                     </Badge>
                   </div>
                   {order.status === 'pending' && (
                     <div className="flex space-x-2">
-                      <Button size="sm" onClick={() => handleOrderAction(order.id, 'approved')}>Approve</Button>
-                      <Button size="sm" variant="outline" onClick={() => handleOrderAction(order.id, 'rejected')}>Reject</Button>
+                      <Button size="sm" >Approve</Button>
+                      <Button size="sm">Reject</Button>
                     </div>
                   )}
                   <Separator className="my-2" />
@@ -106,7 +98,7 @@ export default function DeliveryWorkerDashboard() {
                     <p>{notification.message}</p>
                   </div>
                   {!notification.read && (
-                    <Button size="sm" variant="link" onClick={() => markNotificationAsRead(notification.id)}>
+                    <Button size="sm" variant="link">
                       Mark as read
                     </Button>
                   )}

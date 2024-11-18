@@ -15,8 +15,8 @@ const SignOutButton = () => {
             setIsLoading(true)
             await axios.get("http://localhost:3000/api/user/logout")
             router.refresh()
-        } catch (error) {
-            setError(error.response.data.message)
+        } catch (error: unknown) {
+            setError("something went wrong")
         } finally {
             setIsLoading(false)
         }
