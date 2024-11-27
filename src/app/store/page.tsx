@@ -13,21 +13,18 @@ const page = async () => {
     const { id } = verifyTokenForPage(token as string) as JwtPayloadType;
 
     return (
-        <>
+        <div className='flex flex-col'>
 
-            <div className='w-full flex-col'>
+            <div className='w-full flex fixed left-0 right-0'>
                 <Navbar />
-
-                <div className='w-full  p-5'>
-                    <div className='mb-5'>
+            </div>
+                {/* <div className='w-full p-5'> */}
+                    <div className=' flex justify-center mt-[110px]'>
+                        <StoresItems />
                         <CreateStoreBox userId={id} />
                     </div>
-                    <div className='w-full flex justify-center'>
-                        <StoresItems />
-                    </div>
-                </div>
-            </div>
-        </>
+                {/* </div> */}
+        </div>
 
     );
 }

@@ -5,10 +5,12 @@ import DeliveryWorkerDashboard from "@/components/homePage/DeliveryWorkerDashboa
 import { JwtPayloadType } from "@/utils/types";
 import { verifyTokenForPage } from "@/utils/verifyToken";
 import { cookies } from "next/headers";
+import { Port_Lligat_Sans } from "next/font/google";
 
 export default function Home() {
   const token = cookies().get('jwtToken')?.value;
   const userPayload = verifyTokenForPage(token as string) as JwtPayloadType;
+
   return (
     <div className="flex w-full items-center flex-col min-h-screen">
       <Navbar />

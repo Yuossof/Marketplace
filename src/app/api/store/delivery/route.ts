@@ -57,6 +57,14 @@ export async function PUT(request: NextRequest) {
                 worksWith: body.storeId
             }
         })
+
+        await prisma.workers.create({
+            data: {
+                storeId: body.storeId,
+                userId: user.id
+            }
+        })
+        
         return NextResponse.json({message: "accepted!", user}, { status: 200 })
     } catch (error) {
         return NextResponse.json({ message: "internal server error" }, { status: 500 })

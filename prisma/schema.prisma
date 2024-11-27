@@ -14,14 +14,14 @@ model User {
   password    String
   isAdmin     Boolean  @default(false)
   havStore    Boolean  @default(false)
-  worksWith   String?
+  worksWith   String? // يستخدم لتحديد نوع العمل (delivery/store)
   workInStore Boolean  @default(false)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
-  carts  Cart[]
-  orders Order[]
-  stores Store[]
+  deliveryOrders Order[] @relation("DeliveryOrders")
+  stores         Store[]
+  Order          Order[]
 }
 
 model Store {
@@ -37,6 +37,14 @@ model Store {
   updatedAt     DateTime       @updatedAt
   storeBanner   StoreBanner?   @relation(fields: [storeBannerId], references: [id])
   storeBannerId String?        @unique
+  Workers       Workers[]
+}
+
+model Workers {
+  id      String  @id @default(uuid())
+  store   Store?  @relation(fields: [storeId], references: [id])
+  storeId String?
+  userId  String?
 }
 
 model Notification {
@@ -79,7 +87,6 @@ model Product {
   storeId     String
   createdAt   DateTime       @default(now())
   updatedAt   DateTime       @updatedAt
-  cartItems   CartItem[]
   orderItems  OrderItem[]
   images      ProductImage[]
 }
@@ -92,34 +99,20 @@ model ProductImage {
   createdAt DateTime @default(now())
 }
 
-model Cart {
-  id        String     @id @default(uuid())
-  user      User       @relation(fields: [userId], references: [id])
-  userId    String
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
-  items     CartItem[]
-}
 
-model CartItem {
-  id        String   @id @default(uuid())
-  cart      Cart     @relation(fields: [cartId], references: [id])
-  cartId    String
-  productId String
-  quantity  Int
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  product   Product  @relation(fields: [productId], references: [id])
-}
 
 model Order {
-  id          String      @id @default(uuid())
-  user        User        @relation(fields: [userId], references: [id])
-  userId      String
-  totalAmount Float
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
-  items       OrderItem[]
+  id             String      @id @default(uuid())
+  user           User        @relation(fields: [userId], references: [id])
+  userId         String
+  totalAmount    Float       @default(0)
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
+  items          OrderItem[]
+  delivered      Boolean     @default(false)
+  deliveryUser   User?       @relation("DeliveryOrders", fields: [deliveryUserId], references: [id])
+  deliveryUserId String? // المستخدم المسؤول عن التوصيل
+  storeId        String // المتجر الذي ينتمي إليه الطلب
 }
 
 model OrderItem {
@@ -131,4 +124,5 @@ model OrderItem {
   price     Float
   createdAt DateTime @default(now())
   product   Product  @relation(fields: [productId], references: [id])
+  delivered Boolean  @default(false)
 }

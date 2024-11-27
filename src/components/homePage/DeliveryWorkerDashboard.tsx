@@ -69,7 +69,7 @@ export default function DeliveryWorkerDashboard() {
                   {order.status === 'pending' && (
                     <div className="flex space-x-2">
                       <Button size="sm" >Approve</Button>
-                      <Button size="sm">Reject</Button>
+                      <Button variant="outline" size="sm">Reject</Button>
                     </div>
                   )}
                   <Separator className="my-2" />

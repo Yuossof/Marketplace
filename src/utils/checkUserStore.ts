@@ -12,7 +12,4 @@ export async function verifyUserStore(request: NextRequest, storeId: string) {
     if (CheckUserStore?.userId !== userPayload.id) {
         return NextResponse.json({ message: "you don't have any store!" }, { status: 404 });
     }
-
-
-    
 }

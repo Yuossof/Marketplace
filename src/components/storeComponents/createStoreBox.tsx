@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from 'react';
 import { Button, buttonVariants } from '../ui/button';
-import { Plus } from 'lucide-react';
+import { CircleFadingPlus, CirclePlus, Diff, Grid2x2Plus, Plus, PlusCircle, PlusSquare } from 'lucide-react';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import './animate.css';
@@ -15,7 +15,7 @@ interface Props {
     userId: string;
 }
 interface CloudinaryResponse {
-    url: string; 
+    url: string;
 }
 
 const CreateStoreBox = ({ userId }: Props) => {
@@ -118,9 +118,12 @@ const CreateStoreBox = ({ userId }: Props) => {
 
     return (
         <div className="flex flex-col items-center justify-center ">
-            <Button onClick={() => setShowBox(true)}>
-                Create New Store
-            </Button>
+            <div onClick={()=> setShowBox(true)} className='w-[300px] transition bg-slate-50 h-[420px] rounded-md border-2 shadow-lg flex justify-center items-center hover:bg-slate-100 cursor-pointer'>
+                {/* <Button onClick={() => setShowBox(true)}> */}
+                   {/* <PlusCircle className='w-[200px] h-[200px] text-gray-500'/> */}
+                   <CircleFadingPlus strokeWidth={0.7} size={170} className='text-gray-500'/>
+                {/* </Button> */}
+            </div>
 
             {showBox && (
                 <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
@@ -185,91 +188,4 @@ const CreateStoreBox = ({ userId }: Props) => {
     )
 };
 
-// return (
-//     <div
-//         onClick={() => {
-//             setScl("1");
-//             setShowBox("block");
-//         }}
-//         className="w-full flex justify-center"
-//     >
-//         <div
-//             className={buttonVariants({
-//                 className: "cursor-pointer",
-//             })}
-//         >
-//             <h1>Create new store</h1>
-//             <Plus />
-//         </div>
-//         <div 
-//             style={{ backgroundColor: "rgb(0 0 0 / 0.8)", display: showBox, animationName: "showBa" }}
-//             className="fixed showBa2 right-0 left-0 top-0 bottom-0 z-50"
-//         >
-//             <div className="w-full h-full flex justify-center items-center ">
-//                 <div
-//                     style={{ scale: scl, animationName: "showB" }}
-//                     className="h-[550px] lg:h-[450px] w-[350px] lg:w-[850px] md:w-[580px] showBa bg-slate-50 rounded-lg p-7 flex flex-col justify-between"
-//                 >
-//                     <div className="flex flex-col gap-4 mt-4">
-//                         <div className="flex-wrap lg:flex-nowrap md:flex sm:flex-wrap gap-3">
-//                             <div className="flex flex-col gap-2 md:w-[100%] w-[100%] lg:w-[100%] sm:w-[100%]">
-//                                 <label className="text-gray-600">Store Name</label>
-//                                 <input
-//                                     value={name}
-//                                     onChange={(eo) => setName(eo.target.value)}
-//                                     type="text"
-//                                     placeholder="store name"
-//                                     className="outline-1 outline-gray-600 border-[1px] rounded-md border-gray-400 w-[100%] h-10 pl-3"
-//                                 />
-//                             </div>
-//                             <div className="flex flex-col gap-2 md:w-[100%] w-[100%] lg:w-[100%] sm:w-[100%]">
-//                                 <label className="text-gray-600">Store Logo</label>
-//                                 <div className="relative">
-//                                     <input
-
-//                                         onChange={handleFileChange}
-//                                         type="file"
-//                                         className="border-gray-400 w-[100%] h-10 pl-3"
-//                                     />
-//                                     {uploading && (
-//                                         <span className="absolute right-3 top-2 text-gray-500">تحميل...</span>
-//                                     )}
-//                                 </div>
-//                             </div>
-//                         </div>
-//                         <div className="flex flex-col gap-2">
-//                             <label className="text-gray-600">Store Description</label>
-//                             <textarea
-//                                 value={description}
-//                                 onChange={(eo) => setDescription(eo.target.value)}
-//                                 className="outline-1 outline-gray-600 border-[1px] rounded-md border-gray-400 w-[100%] h-[200px] pl-3 pt-2 text-[17px] text-gray-600"
-//                                 placeholder="store description (optional)"
-//                             ></textarea>
-//                         </div>
-//                     </div>
-//                     <div className="flex items-center justify-between">
-//                         <button
-//                             onClick={(e) => {
-//                                 e.stopPropagation();
-//                                 setShowBox("none");
-//                             }}
-//                         >
-//                             Cancel
-//                         </button>
-//                         <div
-//                             onClick={handleClick}
-//                             className={buttonVariants({
-//                                 className: "cursor-pointer",
-//                             })}
-//                         >
-//                             {isLoading ? <span>Loading...</span> : <>
-//                                 <h1>Create Store</h1>
-//                                 <Plus className="w-5 h-5 text-white" />
-//                             </>}
-//                         </div>
-//                     </div>
-//                 </div>
-//             </div>
-//         </div>
-//     </div>
 export default CreateStoreBox;

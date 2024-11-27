@@ -57,7 +57,7 @@ export default function NotificationBox({ storeId }: {storeId: string}) {
 
 
     return (
-        <div className="w-[400px]  bg-white dark:bg-gray-800 rounded-lg shadow-lg border-2 overflow-hidden">
+        <div className="w-[600px]  bg-white dark:bg-gray-800 rounded-lg shadow-lg border-2 overflow-hidden">
             <div className="flex items-center justify-between px-4 py-2 border-b border-gray-200 dark:border-gray-700">
                 <h3 className="font-semibold text-lg">Notifications</h3>
                 <Badge variant="secondary">3 Unread</Badge>

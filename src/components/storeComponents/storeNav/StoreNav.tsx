@@ -1,8 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
-import { Button } from '@/components/ui/button'
-import { Menu } from 'lucide-react'
-import { ShoppingCart } from 'lucide-react'
+import CartItemsBox from './CartItemsBox'
+
 const StoreNav = () => {
     return (
 
@@ -15,10 +14,7 @@ const StoreNav = () => {
                 </div>
             </div>
             <div className="flex flex-1 items-center justify-end space-x-4">
-                <Button variant="outline" size="icon">
-                    <ShoppingCart className="h-5 w-5" />
-                    <span className="sr-only">Shopping cart</span>
-                </Button>
+                <CartItemsBox />
             </div>
         </header>
     )
